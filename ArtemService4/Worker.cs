@@ -1,6 +1,6 @@
 namespace ArtemService4
 {
-    public class Worker : BackgroundService
+public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
 
@@ -16,6 +16,7 @@ namespace ArtemService4
                 if (_logger.IsEnabled(LogLevel.Information))
                 {
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                    
                 }
                 await Task.Delay(1000, stoppingToken);
             }
