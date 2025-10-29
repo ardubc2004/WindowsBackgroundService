@@ -1,6 +1,7 @@
 using ArtemService4;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using System.Runtime.InteropServices;
 
@@ -20,9 +21,12 @@ try
     IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
     .UseSerilog()
-    .ConfigureServices(services =>
+    .ConfigureServices((context, services) =>
     {
+        services.Configure<WorkerSettings>(context.Configuration.GetSection("Workers"));
+
         services.AddHostedService<Worker>();
+        services.AddHostedService<Worker2>();
     })
     .Build();
 
